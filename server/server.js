@@ -1,12 +1,24 @@
 const express = require('express');
 const app = express();
+const connectDB = require('./db');
 
+// Express'in JSON parser'ını kullanıyoruz
+app.use(express.json());
+
+// MongoDB bağlantısını başlatıyoruz
+connectDB();
+
+// Ana rota
 app.get('/', (req, res) => {
   res.send('Running...');
 });
 
-app.get('/deneme', (req,res)=>{
-  res.json({"users": ["kemal","fatih"]})
-})
+// Deneme rotası
+app.get('/deneme', (req, res) => {
+  res.json({ "users": ["user1", "user2"] });
+});
 
-app.listen(3000, () => console.log('Server is running on port 3000'));
+// Sunucuyu başlatıyoruz
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
