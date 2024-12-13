@@ -1,7 +1,6 @@
 
 const mongoose = require('mongoose');
 const Commands = require('../command');
-
 const commands = [
     {
       command: 'kubectl config view',

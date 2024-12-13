@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.custom-navbar {
+  background-color: #343a40; /* Koyu gri renk */
+  padding: 20px 0; /* Dikey boşlukları artırarak navbar'ı daha uzun yap */
+  height: 100px; /* Navbar'ın yüksekliğini artır */
+}
+
+.custom-navbar .navbar-brand {
+  font-size: 2.5rem; /* Yazı boyutunu büyüt */
+}
+
+.custom-navbar .navbar-nav .nav-link {
+  color: #f8f9fa !important; /* Menü öğeleri rengi */
+  font-size: 1.1rem; /* Menü font büyüklüğü */
+  padding: 15px 25px; /* Menü öğelerine yatay boşluk */
+}
