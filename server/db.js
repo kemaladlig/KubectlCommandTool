@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const addCommand = require('./service/addCommand');
+const addCommand = require('./service/addExploringApiResources.js');
 
 const connectDB = async () => {
   try {

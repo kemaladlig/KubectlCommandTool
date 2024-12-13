@@ -11,10 +11,6 @@ const commandSchema = new mongoose.Schema({
     type: String,
     required: true, 
   },
-  examples: [{
-    commandexp: { type: String, required: true },  
-    description: { type: String, required: true }
-  }],
   guide: {
     type: String, 
     required: true,
