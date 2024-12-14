@@ -2,17 +2,17 @@ import { Row, Col } from 'react-bootstrap';
 import { FaRegCopy } from 'react-icons/fa'; // Kopyalama ve Ünlem ikonu
 
 function MyCard() {
-  const commandData = {
+  /* const commandData = {
     command: 'kubectl config view -o jsonpath=\'{.users[?(@.name == "e2e")].user.password}\'',
     description: 'Get the password for the e2e user.',
     guide: 'Use jsonpath to extract the password for a specific user.',
     category: 'context and configuration',
     tags: ['jsonpath', 'user', 'password']
-  };
+  }; */
 
   // Kopyalama fonksiyonu
   const handleCopy = () => {
-    navigator.clipboard.writeText(commandData.command);
+    //navigator.clipboard.writeText(commandData.command);
     alert('Command copied to clipboard!');
   };
 
@@ -32,7 +32,6 @@ function MyCard() {
                   flex: 1, // Komutun genişliğini alacak şekilde
                   marginRight: '10px', // İkonla arasına boşluk
                 }}>
-                  {commandData.command}
                   <FaRegCopy
                   size={24}
                   style={{

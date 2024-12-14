@@ -1,5 +1,5 @@
-const connectDB = require('../db'); // db.js dosyasındaki MongoDB bağlantısı
-const Commands = require('../command'); // Command modelini dahil et
+const connectDB = require('../../db'); // db.js dosyasındaki MongoDB bağlantısı
+const Commands = require('../../command'); // Command modelini dahil et
 
 // Yeni komut verisini oluştur
 const newCommand = new Commands({
