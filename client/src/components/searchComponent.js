@@ -3,7 +3,9 @@ import { Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import axios from 'axios';
 import Fuse from 'fuse.js';
-import CommandCard from './commandCard'; // CommandCard bileşenini import et
+import CommandCard from './commandCard';
+import { motion, AnimatePresence } from 'framer-motion';
+
 
 function SearchComponent() {
   const [searchText, setSearchText] = useState('');
@@ -43,48 +45,88 @@ function SearchComponent() {
   };
 
   return (
-    <div className="search-component m-5">
-      <Form>
-        <InputGroup className="mb-3">
-          {/* Arama simgesi */}
-          <InputGroup.Text id="basic-addon1">
-            <FaSearch />
-          </InputGroup.Text>
+  <div className="search-component m-5">
+    <Form>
+      <InputGroup className="mb-3">
+        {/* Arama simgesi */}
+        <InputGroup.Text id="basic-addon1">
+          <FaSearch />
+        </InputGroup.Text>
 
-          {/* Arama input alanı */}
-          <Form.Control
-            placeholder="Search..."
-            aria-label="Search"
-            aria-describedby="basic-addon1"
-            value={searchText}
-            onChange={handleInputChange}
+        {/* Arama input alanı */}
+        <Form.Control
+          placeholder="Komut aramak için burayı kullanabilirsiniz."
+          aria-label="Search"
+          aria-describedby="basic-addon1"
+          value={searchText}
+          onChange={handleInputChange}
+          style={{
+            fontSize: '1.25rem',
+            padding: '0.75rem',
+          }}
+        />
+      </InputGroup>
+    </Form>
+
+    {/* Arama sonuçlarını CommandCard bileşenleri olarak listele */}
+    <div className="results m-5 p-3">
+      {filteredCommands.length === 0 ? (
+        <p>Aramanıza uygun sonuç bulunamadı.</p> // Eğer sonuç yoksa kullanıcıya bilgi ver
+      ) : (
+        <AnimatePresence>
+          <motion.div
             style={{
-              fontSize: '1.25rem',
-              padding: '0.75rem',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '20px',
             }}
-          />
-        </InputGroup>
-      </Form>
-
-      {/* Arama sonuçlarını liste olarak göster */}
-      <div className="results card m-5 p-3">
-        {filteredCommands.length === 0 ? (
-          <p>No results found</p> // Eğer sonuç yoksa kullanıcıya bilgi ver
-        ) : (
-          <ul className='list-group list-group-flush'>
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  staggerChildren: 0.1, // Her öğe arasında 0.1 saniye gecikme
+                },
+              },
+            }}
+          >
             {filteredCommands.map((command, index) => (
-              <li key={index} className='list-group-item'>
-                <strong>{command.command}</strong>
-                {command.description && <p>{command.description}</p>}
-                {command.category && <p><strong>Category:</strong> {command.category}</p>}
-                {command.tags && <p><strong>Tags:</strong> {command.tags.join(', ')}</p>}
-              </li>
+              <motion.div
+                key={index}
+                style={{
+                  flex: '1 1 auto', // Esnek yapı
+                  minWidth: '250px', // Minimum genişlik
+                  marginBottom: '20px',
+                }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0 },
+                }}
+                initial="hidden"
+                animate="show"
+                exit="hidden"
+              >
+                {/* CommandCard bileşenini kullanarak her bir komutu kart olarak göster */}
+                <CommandCard
+                  command={command.command}
+                  description={command.description}
+                  category={command.category}
+                  tags={command.tags}
+                />
+              </motion.div>
             ))}
-          </ul>
-        )}
-      </div>
+          </motion.div>
+        </AnimatePresence>
+      )}
     </div>
-  );
+  </div>
+);
+
+  
 }
 
 export default SearchComponent;

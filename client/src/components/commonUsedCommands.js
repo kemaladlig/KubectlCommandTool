@@ -43,12 +43,11 @@ const frequentCommands = [
 
 function FrequentCommands() {
   return (
-    <div className="search-component m-1">
-      {/* En Sık Kullanılan Komutlar Bölümü */}
+    <div className="search-component m-3 mt-5">
       <h3>En Sık Kullanılan Komutlar</h3>
       <Row>
         {frequentCommands.map((commandData, index) => (
-          <Col key={index} sm={12} md={6} lg={6} className="d-flex">
+          <Col key={index} sm={12} md={12} lg={12} className="d-flex">
             <CommandCard
               command={commandData.command}
               description={commandData.description}
@@ -64,3 +63,4 @@ function FrequentCommands() {
 }
 
 export default FrequentCommands;
+

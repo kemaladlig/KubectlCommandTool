@@ -4,7 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 
 function RowEntryComponent() {
     return (
-        <Row className="mt-4">
+        <Row className="mt-5">
             <Col md={6}>
                 <div className="card" style={{ width: '100%' }}>
                     <div className="card-body">
@@ -27,6 +27,7 @@ function RowEntryComponent() {
                 </div>
             </Col>
         </Row>
+        
     );
 }
 

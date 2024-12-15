@@ -22,7 +22,6 @@ app.get('/', (req, res) => {
   res.send('Running...');
 });
 
-
 app.get('/commands', async (req,res) => {
   try {
     const commands= await getAllCommands();

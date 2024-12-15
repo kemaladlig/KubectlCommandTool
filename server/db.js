@@ -6,7 +6,6 @@ const connectDB = async () => {
     await mongoose.connect('mongodb://127.0.0.1:27017/kubectl-command-tool', {  
     });
     console.log('MongoDB connected.');
-    //await addCommand();
   } catch (error) {
     console.error('MongoDB error: ', error);
     process.exit(1);

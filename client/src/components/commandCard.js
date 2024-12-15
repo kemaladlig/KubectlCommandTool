@@ -1,53 +1,57 @@
-import { Row, Col } from 'react-bootstrap';
-import { FaRegCopy } from 'react-icons/fa'; // Kopyalama ve Ünlem ikonu
+import React from 'react';
+import { FaRegCopy } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import '../Assets/commandCardStyle.css';
 
-function MyCard() {
-  /* const commandData = {
-    command: 'kubectl config view -o jsonpath=\'{.users[?(@.name == "e2e")].user.password}\'',
-    description: 'Get the password for the e2e user.',
-    guide: 'Use jsonpath to extract the password for a specific user.',
-    category: 'context and configuration',
-    tags: ['jsonpath', 'user', 'password']
-  }; */
+function CommandCard({ command, description }) {
 
-  // Kopyalama fonksiyonu
-  const handleCopy = () => {
-    //navigator.clipboard.writeText(commandData.command);
-    alert('Command copied to clipboard!');
+  const handleCopy = async () => {
+
+    try {
+      if (!command || typeof command !== 'string') {
+        throw new Error('Geçersiz komut: Command boş veya geçersiz bir türde.');
+      }
+
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(command);
+        toast.success(`Komut başarıyla kopyalandı.`, {
+          position: 'bottom-center',
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: 'dark'
+        });
+      } else {
+        throw new Error("Tarayıcınız clipboard API'sini desteklemiyor.");
+      }
+    } catch (error) {
+      console.error('Kopyalama hatası:', error.message);
+      toast.error(`Kopyalama hatası: ${error.message}`);
+    }
   };
 
   return (
-        <Row className="align-items-center m-5">
-          {/* Komut ve açıklama kısmı */}
-          <Col md={10}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'start' }}>
-                <pre style={{
-                  backgroundColor: '#544b60',  // Koyu tema
-                  color: '#f8f9fa',             
-                  padding: '10px',
-                  borderRadius: '5px',
-                  fontFamily: 'monospace',
-                  fontSize: '1rem',
-                  flex: 1, // Komutun genişliğini alacak şekilde
-                  marginRight: '10px', // İkonla arasına boşluk
-                }}>
-                  <FaRegCopy
-                  size={24}
-                  style={{
-                    cursor: 'pointer',
-                    color: '#ffffff',
-                    marginLeft: '50px'
-                  }}
-                  onClick={handleCopy}
-                />
-                </pre>
+    <div className="command-card p-3 mb-3 border rounded-3 text-light">
+      {/* Komut ve ikon */}
+      <div className="d-flex align-items-center justify-content-between">
+        <pre className="command-text mb-0">{command}</pre>
+        <FaRegCopy
+          size={24}
+          className="copy-icon"
+          onClick={handleCopy}
+        />
+      </div>
 
-              </div>
-            </div>
-          </Col>
-        </Row>
+      {/* Açıklama (description) */}
+      {description && (
+        <p className="description-text mt-3">
+          {description}
+        </p>
+      )}
+    </div>
   );
 }
 
-export default MyCard;
+export default CommandCard;

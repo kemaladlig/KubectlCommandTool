@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 function FooterComponent() {
   return (
-    <footer style={{ backgroundColor: '#343a40', color: 'white', padding: '20px 0' }}>
+    <footer className='custom-footer' style={{ backgroundColor: '#343a40', color: 'white', padding: '20px 0' }}>
       <Container>
         <Row className="align-items-center">
           {/* Sol taraf - Başlık ve Telif Hakkı */}
