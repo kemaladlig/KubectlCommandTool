@@ -14,7 +14,7 @@ const JumbotronComponent = () => {
         Kubernetes'i kullanırken ihtiyaç duyduğunuz komutları hızlıca öğrenebilir ve uygulamanızda nasıl kullanacağınızla ilgili pratik bilgiler edinebilirsiniz.
         İster bir geliştirici, ister bir sistem yöneticisi olun, Kubernetes komutlarını öğrenmek ve etkili bir şekilde kullanmak işinizi kolaylaştıracaktır.
       </p>
-      <a className="btn btn-lg btn-primary" href="https://kubernetes.io/docs/reference/kubectl/overview/" role="button">
+      <a className="btn btn-lg btn-primary" href="https://kubernetes.io/docs/reference/kubectl/overview/"  target="_blank" rel="noopener noreferrer" role="button">
         Kubectl Komutları Hakkında Daha Fazla Bilgi
       </a>
 

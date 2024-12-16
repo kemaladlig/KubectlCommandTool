@@ -6,7 +6,7 @@ function MyNavbar() {
   return (
     <Navbar className="custom-navbar" variant="dark" expand="lg">
   <Container>
-    <Navbar.Brand href="#home" className="d-flex align-items-center">
+    <Navbar.Brand href="#" className="d-flex align-items-center">
       <img
         src={kuberIcon} // Burada içe aktarılan logo kullanılacak
         alt="Logo"
@@ -21,10 +21,9 @@ function MyNavbar() {
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
       <Nav>
-        <Nav.Link href="#kubernetes">Kubernetes Nedir?</Nav.Link>
-        <Nav.Link href="#command-search">Komut Arama</Nav.Link>
-        <Nav.Link href="#community">Topluluk</Nav.Link>
-        <Nav.Link href="#categories">Kategoriler</Nav.Link>
+        <Nav.Link href="#command-search">En Sık Kullanılanlar</Nav.Link>
+        <Nav.Link href="https://kubernetes.io/community/" target="_blank" rel="noopener noreferrer">Topluluk</Nav.Link>
+        <Nav.Link href="https://kubernetes.io/releases/download/" target="_blank" rel="noopener noreferrer">Kubernetes'i İndir</Nav.Link>
       </Nav>
     </Navbar.Collapse>
   </Container>

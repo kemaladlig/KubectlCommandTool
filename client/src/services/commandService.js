@@ -6,7 +6,7 @@ export const fetchCommands = async () => {
     return response.data;
   } catch (error) {
     console.error('Veri çekme hatası:', error);
-    throw error; // Hata fırlatılır, böylece bileşende yakalanabilir
+    throw error; 
   }
 };
 

@@ -55,7 +55,7 @@ function SearchComponent() {
           />
         </InputGroup>
       </Form>
-
+      
       {/* Arama Sonuçları */}
       <div className="results m-5 p-3">
         {searchText && filteredCommands.length === 0 ? (
@@ -82,7 +82,7 @@ function SearchComponent() {
                   style={{
                     flex: '1 1 auto',
                     minWidth: '250px',
-                    marginBottom: '20px',
+                    marginBottom: '0px',
                   }}
                   variants={{
                     hidden: { opacity: 0, y: 20 },

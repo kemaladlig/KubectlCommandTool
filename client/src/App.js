@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import MyNavbar from './components/navbar'; 
 import { Container } from 'react-bootstrap';

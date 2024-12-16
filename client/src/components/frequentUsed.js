@@ -1,6 +1,6 @@
 import React from 'react';
-import {Row, Col } from 'react-bootstrap';
-import CommandCard from './commandCard'; // CommandCard bileşenini import et
+import { Row, Col } from 'react-bootstrap';
+import CommandCard from './commandCard';
 
 // Sık kullanılan komutlar
 const frequentCommands = [
@@ -43,11 +43,11 @@ const frequentCommands = [
 
 function FrequentCommands() {
   return (
-    <div className="search-component m-3 mt-5">
-      <h3>En Sık Kullanılan Komutlar</h3>
-      <Row>
+    <div id="command-search" className="search-component m-3 mt-5 mb-5">
+      <h3 className='m-4'>En Sık Kullanılan Komutlar</h3>
+      <Row style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
         {frequentCommands.map((commandData, index) => (
-          <Col key={index} sm={12} md={12} lg={12} className="d-flex">
+          <Col key={index}>
             <CommandCard
               command={commandData.command}
               description={commandData.description}
@@ -63,4 +63,6 @@ function FrequentCommands() {
 }
 
 export default FrequentCommands;
+
+
 

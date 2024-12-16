@@ -1,33 +1,33 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
 
 
 function RowEntryComponent() {
     return (
-        <Row className="mt-5">
+        <Row className="mt-5 mb-5">
             <Col md={6}>
-                <div className="card" style={{ width: '100%' }}>
-                    <div className="card-body">
-                        <h5 className="card-title">Kubernetes Nedir?</h5>
-                        <p className="card-text">
-                            Kubernetes, açık kaynaklı bir konteyner orkestrasyon platformudur ve konteyner tabanlı uygulamaların dağıtımını, yönetilmesini, ölçeklendirilmesini ve otomatikleştirilmesini sağlar. Google tarafından geliştirilen Kubernetes, birden çok sunucu üzerinde çalışan konteynerleri izler, yönetir ve yüksek erişilebilirlik ile yük dengeleme sunar. Mikroservis mimarisi kullanan uygulamalar için özellikle önemlidir, çünkü farklı bileşenlerin bağımsız olarak çalışmasını ve ihtiyaç duyulduğunda ölçeklenebilmesini mümkün kılar. Kubernetes, konteynerlerin durumunu sürekli izler ve istenen durumdan sapma durumunda otomatik düzeltmeler yaparak uygulama sürekliliğini sağlar.
-                        </p>
-                    </div>
-                </div>
+                <Card style={{ width: '100%', backgroundColor: 'rgba(108, 117, 125, 0.5)' }} className="text-white">
+                    <Card.Body>
+                        <Card.Title>Kubernetes Nedir?</Card.Title>
+                        <Card.Text>
+                            Kubernetes, açık kaynaklı bir konteyner orkestrasyon platformudur. Google tarafından geliştirilen bu sistem, uygulama sürekliliği sağlamak için konteynerlerin durumunu sürekli izler ve otomatik düzeltmeler yapar. Mikroservis mimarisi ile çalışan uygulamalar için özellikle önemlidir. Kubernetes, kaynak yönetimini ve ölçeklemeyi kolaylaştırır.
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
             </Col>
 
             <Col md={6}>
-                <div className='card' style={{ width: '100%' }}>
-                <div className="card-body">
-                        <h5 className="card-title">Kubectl Nedir?</h5>
-                        <p className="card-text">
-                        Kubernetes platformunda kullanılan bir komut satırı arayüzü (CLI) aracıdır. Kubernetes kümelerini yönetmek, uygulamaları dağıtmak, güncellemek, ölçeklemek ve kaynakların durumunu izlemek için kullanılır. kubectl ile pod'lar, hizmetler (services), dağıtımlar (deployments) ve diğer Kubernetes nesneleri üzerinde işlemler gerçekleştirebilir, aynı zamanda sistem loglarını izleyerek sorun giderme yapabilirsiniz. YAML veya JSON formatında hazırlanan konfigürasyon dosyalarını kolayca yükleyebilir ve Kubernetes altyapısını etkili bir şekilde kontrol edebilirsiniz. Bu araç, Kubernetes üzerinde tam kontrol sağlayarak geliştiricilere ve operasyon ekiplerine güçlü bir yönetim aracı sunar.
-                        </p>
-                    </div>
-                </div>
+                <Card style={{ width: '100%', backgroundColor: 'rgba(108, 117, 125, 0.5)' }} className="text-white">
+                    <Card.Body>
+                        <Card.Title>Kubectl Nedir?</Card.Title>
+                        <Card.Text>
+                            Kubectl, Kubernetes platformunda kullanılan bir komut satırı aracıdır. Kümeleri yönetmek, uygulamaları dağıtmak, kaynakları izlemek ve logları incelemek için kullanılır. Kubernetes sistemlerinde uygulamaların dağıtımını ve yönetimini kolaylaştıran bir araçtır. YAML veya JSON formatlarında konfigürasyon dosyalarını yüklemeye olanak tanır.
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
             </Col>
         </Row>
-        
     );
 }
 
