@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import kuberIcon from '../Assets/logo.png'; // Doğru dosya yolu
+import kuberIcon from '../assets/logo.png'; // Doğru dosya yolu
 
 function MyNavbar() {
   return (

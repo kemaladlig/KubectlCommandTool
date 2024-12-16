@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Assets/commandCardStyle.css';
+import '../styles/commandCardStyle.css';
 
 const JumbotronComponent = () => {
   return (
