@@ -14,13 +14,11 @@ function FooterComponent() {
     >
       <Container>
         <Row className="align-items-center">
-          {/* Sol taraf - Telif Hakkı */}
           <Col md={6} className="mb-3 mb-md-0">
             <h5 style={{ marginBottom: '15px' }}>Kubectl Komut Aracı</h5>
             <p style={{ margin: 0 }}>© 2024 Kubectl Komut Aracı. Tüm Hakları Saklıdır.</p>
           </Col>
 
-          {/* Sağ taraf - Linkler */}
           <Col md={6} className="text-md-right">
             <h5 style={{ marginBottom: '15px' }}>Kubernetes Hakkında Daha Fazla Bilgi Edinin</h5>
             <ul

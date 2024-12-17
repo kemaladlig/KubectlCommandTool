@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import kuberIcon from '../assets/logo.png'; // Doğru dosya yolu
+import kuberIcon from '../assets/logo.png';
 
 function MyNavbar() {
   return (
@@ -8,12 +8,12 @@ function MyNavbar() {
   <Container>
     <Navbar.Brand href="#" className="d-flex align-items-center">
       <img
-        src={kuberIcon} // Burada içe aktarılan logo kullanılacak
+        src={kuberIcon}
         alt="Logo"
         style={{
-          width: '30px', // Logo boyutunu artırdık
+          width: '30px',
           height: '30px',
-          marginRight: '15px', // Margin artırıldı
+          marginRight: '15px',
         }}
       />
       Kubectl Command Search Tool
