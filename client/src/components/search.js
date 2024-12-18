@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, InputGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import CommandCard from './commandCard';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -38,23 +38,32 @@ function SearchComponent() {
 
       {/* Arama metni girilen form */}
       <Form>
-        <InputGroup className="mb-3">
-          <InputGroup.Text id="basic-addon1">
-            <FaSearch />
-          </InputGroup.Text>
-          <Form.Control
-            placeholder="Komut aramak için burayı kullanabilirsiniz."
-            aria-label="Search"
-            aria-describedby="basic-addon1"
-            value={searchText}
-            onChange={handleInputChange}
-            style={{
-              fontSize: '1.25rem',
-              padding: '0.75rem',
-            }}
-          />
-        </InputGroup>
-      </Form>
+      <div className="search-wrapper" style={{ position: 'relative', width: '100%',  }}>
+        <FaSearch
+          style={{
+            position: 'absolute',
+            left: '10px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            fontSize: '1.5rem',
+            color: '#999',
+          }}
+        />
+        <Form.Control
+          placeholder="Komut aramak için burayı kullanabilirsiniz."
+          aria-label="Search"
+          aria-describedby="basic-addon1"
+          value={searchText}
+          onChange={handleInputChange}
+          style={{
+            fontSize: '1.25rem',
+            padding: '0.75rem 0.75rem 0.75rem 45px', // Add padding to the left to make space for the icon
+            border: '1px solid #ccc',
+            borderRadius: '0.375rem',
+          }}
+        />
+      </div>
+    </Form>
       
       {/* Arama Sonuçları */}
       <div className="results m-5 p-3">
