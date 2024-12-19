@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaRegCopy } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import '../styles/commandCardStyle.css';
+import '../styles/commandCard.css';
 
 function CommandCard({ command, description }) {
 
