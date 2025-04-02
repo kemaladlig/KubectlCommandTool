@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Commands= require('../command.js');
 
 const getAllCommands = async () =>{

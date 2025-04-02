@@ -26,6 +26,6 @@ const commandSchema = new mongoose.Schema({
 });
 
 // Komut Modeli
-const Commands = mongoose.model('Commands', commandSchema);
+const Commands = mongoose.model('Commands', commandSchema, 'commands');
 
 module.exports = Commands;
