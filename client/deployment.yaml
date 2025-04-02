@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubectl-command-tool-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubectl-command-tool-client
+  template:
+    metadata:
+      labels:
+        app: kubectl-command-tool-client
+    spec:
+      containers:
+        - name: kubectl-command-tool-client
+          image: kemaladlig/k-command-tool-client:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: SERVER_URL
+              value: "http://kubectl-command-tool-server:3000"

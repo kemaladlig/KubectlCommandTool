@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubectl-command-tool-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubectl-command-tool-server
+  template:
+    metadata:
+      labels:
+        app: kubectl-command-tool-server
+    spec:
+      containers:
+        - name: kubectl-command-tool-server
+          image: kemaladlig/k-command-tool-server:latest  
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_URI

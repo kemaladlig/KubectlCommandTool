@@ -1,0 +1,61 @@
+/* commandCardStyle.css */
+
+.command-card {
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    background-color: #0b3b83; /* Yeni arka plan rengi */
+    color: #f5f5f5; /* Daha açık metin rengi */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.command-card:hover {
+    background-color: #1366e4; /* Hoverda değişen arka plan rengi */
+    transform: scale(1.05); /* Hoverda küçük büyüme efekti */
+}
+
+.command-text {
+    background-color: #2e2e2e; /* Yeni arka plan rengi */
+    color: #eaeaea;
+    padding: 5px;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 1rem;
+    flex: 1;
+    margin-right: 10px;
+    font-weight: bold;
+    overflow-x: auto;
+}
+
+.copy-icon {
+    cursor: pointer;
+    color: #f5f5f5;
+    transition: color 0.3s ease;
+}
+
+.copy-icon:hover {
+    color: #007aff; 
+}
+
+.description-text {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #eaeaea; /* Açık gri metin rengi */
+}
+
+
+.btn-custom {
+    color: #f5f5f5; /* Buton metni rengi */
+    background-color: #1f1f1f; /* Başlangıç arka plan rengi */
+    border: 1px solid #bbb; /* Kenarlık rengi */
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    color: #fff; /* Hoverda metin rengi */
+    background-color: #0f0f0f; /* Hoverda arka plan rengi */
+    border-color: #bbb; /* Hoverda sınır rengi */
+}
