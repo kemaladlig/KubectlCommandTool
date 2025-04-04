@@ -15,14 +15,16 @@ app.get('/', (req, res) => {
   res.send('Running...');
 });
 
-app.get('/commands', async (req,res) => {
+app.get('/commands', async (req, res) => {
   try {
-    const commands= await getAllCommands();
+    const commands = await getAllCommands();
     res.json(commands);
   } catch (error) {
     console.log("Veriler çekilirken hata oluştu. ", error);
+    res.status(500).json({ message: 'Error fetching commands' });
   }
 });
+
 
 // Sunucuyu başlatıyoruz
 app.listen(3000, () => {
