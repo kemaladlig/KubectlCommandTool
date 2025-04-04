@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: kubectl-command-tool-client
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: kubectl-command-tool-client
   ports:
     - protocol: TCP
-      port: 80 
-      targetPort: 80  
+      port: 80
+      targetPort: 80

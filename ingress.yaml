@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubectl-command-tool-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  rules:
+  - host: kubectl-command-tool.duckdns.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kubectl-command-tool-client
+            port:
+              number: 80
+  - host: api-kubectl-command-tool.duckdns.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kubectl-command-tool-server
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - kubectl-command-tool.duckdns.org
+    - api-kubectl-command-tool.duckdns.org  
+    secretName: kubectl-command-tool-tls
