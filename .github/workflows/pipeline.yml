@@ -36,32 +36,38 @@ jobs:
       - name: Login to Docker Hub
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-      # -------- Build & Push SERVER ----------
+      # -------- Cache Docker layers for SERVER ----------
       - name: Cache Docker layers for server
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
-          path: ~/.cache/docker
-          key: ${{ runner.os }}-docker-${{ github.sha }}
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}-server
           restore-keys: |
-            ${{ runner.os }}-docker-
+            ${{ runner.os }}-buildx-
 
       - name: Build and push server image
         run: |
-          docker buildx build --cache-from=type=gha --tag kemaladlig/k-command-tool-server:$VERSION ./server
+          docker buildx build \
+            --cache-from=type=local,src=/tmp/.buildx-cache \
+            --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max \
+            -t kemaladlig/k-command-tool-server:$VERSION ./server
           docker push kemaladlig/k-command-tool-server:$VERSION
 
-      # -------- Build & Push CLIENT ----------
+      # -------- Cache Docker layers for CLIENT ----------
       - name: Cache Docker layers for client
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
-          path: ~/.cache/docker
-          key: ${{ runner.os }}-docker-${{ github.sha }}
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}-client
           restore-keys: |
-            ${{ runner.os }}-docker-
+            ${{ runner.os }}-buildx-
 
       - name: Build and push client image
         run: |
-          docker buildx build --cache-from=type=gha --tag kemaladlig/k-command-tool-client:$VERSION ./client
+          docker buildx build \
+            --cache-from=type=local,src=/tmp/.buildx-cache \
+            --cache-to=type=local,dest=/tmp/.buildx-cache,mode=max \
+            -t kemaladlig/k-command-tool-client:$VERSION ./client
           docker push kemaladlig/k-command-tool-client:$VERSION
 
       # -------- Set Kube credentials ----------
