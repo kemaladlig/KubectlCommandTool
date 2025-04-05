@@ -6,9 +6,6 @@ WORKDIR /app
 COPY package*.json ./  
 RUN npm install
 
-# Listele: /app dizinindeki mevcut dosyaları kontrol et
-RUN echo "Listing /app directory:" && ls -l /app
-
 # Copy the rest of the client code
 COPY public ./public      
 COPY src ./src             

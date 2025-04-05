@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: kubectl-command-tool-client
-          image: kemaladlig/k-command-tool-client:v1.2
+          image: kemaladlig/k-command-tool-client:${{ github.sha }}
           ports:
             - containerPort: 3000
           env:
