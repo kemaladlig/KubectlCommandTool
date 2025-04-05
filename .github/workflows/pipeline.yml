@@ -25,9 +25,6 @@ jobs:
         id: set_version
         run: echo "VERSION=v$(git rev-list --count HEAD)" >> $GITHUB_ENV
 
-      - name: Print Version
-        run: echo "Version is: $VERSION"
-
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
