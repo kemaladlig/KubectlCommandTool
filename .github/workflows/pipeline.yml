@@ -20,7 +20,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Calculate version from commit count and prepend "v"
       - name: Set version from commit count
         id: set_version
         run: echo "VERSION=v$(git rev-list --count HEAD)" >> $GITHUB_ENV
@@ -78,13 +77,13 @@ jobs:
           location: ${{ env.GKE_ZONE }}
 
       # -------- Deploy to GKE ---------
-      - name: Deploy Client
-        run: |
-          sed "s|\${VERSION}|$VERSION|g" ./client/frontend-deployment.yaml | kubectl apply -f -
-
       - name: Deploy Server
         run: |
           sed "s|\${VERSION}|$VERSION|g" ./server/backend-deployment.yaml | kubectl apply -f -
+  
+      - name: Deploy Client
+        run: |
+          sed "s|\${VERSION}|$VERSION|g" ./client/frontend-deployment.yaml | kubectl apply -f -
 
 
       # -------- Rollout Status For Deployments ---------
