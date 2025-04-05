@@ -1,21 +1,27 @@
-# Stage 1: Build
-FROM node:16-alpine AS builder
+# 1. Aşama: Build aşaması
+FROM node:18-alpine as build
+
+# Çalışma dizinini /app olarak ayarlıyoruz
 WORKDIR /app
 
-# Optimize caching
+# package.json ve package-lock.json dosyalarını kopyalayın
 COPY package*.json ./
+
+# Bağımlılıkları yükleyin
 RUN npm install
 
-# Copy rest of the client code
-COPY public ./public
-COPY src ./src
+# Tüm proje dosyalarını kopyalayın (örn. src, public, vs.)
+COPY . .
 
-# Build the app
+# Build işlemini çalıştırın
 RUN npm run build
 
-# Stage 2: Serve using nginx
+# 2. Aşama: Nginx ile dağıtım
 FROM nginx:alpine
-COPY --from=builder /app/build /usr/share/nginx/html
+
+# Build edilen dosyaları Nginx'in html dizinine kopyalayın
+COPY --from=build /app/build /usr/share/nginx/html
 
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
