@@ -26,7 +26,7 @@ jobs:
         run: echo "VERSION=v$(git rev-list --count HEAD)" >> $GITHUB_ENV
 
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS_JSON }}
 
@@ -85,3 +85,14 @@ jobs:
       - name: Deploy Server
         run: |
           sed "s|\${VERSION}|$VERSION|g" ./server/backend-deployment.yaml | kubectl apply -f -
+
+
+      # -------- Rollout Status For Deployments ---------
+      - name: Wait for server deployment to finish
+        run: |
+          kubectl rollout status deployment/k-command-tool-server
+          
+      - name: Wait for client deployment to finish
+        run: |
+          kubectl rollout status deployment/k-command-tool-client
+
