@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:16-alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Optimize caching
@@ -18,13 +18,9 @@ COPY src/Assets ./src/assets
 # Build the app
 RUN npm run build
 
-# Listele: /app/build dizinini kontrol et (build işlemi sonrası)
-RUN echo "Listing /app/build directory:" && ls -l /app/build
-
 # Stage 2: Serve using nginx
 FROM nginx:alpine
 COPY --from=builder /app/build /usr/share/nginx/html
-
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

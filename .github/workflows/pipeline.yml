@@ -1,4 +1,4 @@
-name: Build React Client
+name: CI/CD Pipeline
 
 on:
   push:
@@ -6,23 +6,65 @@ on:
       - release
 
 jobs:
-  build-client:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
+    
+    # 1. Checkout the code
     - name: Checkout code
       uses: actions/checkout@v2
 
+    # 2. Set up Docker
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
+    # 3. Set up Google Cloud credentials
+    - name: Set up GCP credentials
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    # 4. Log in to Docker Hub
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push client Docker image
+    # 5. Build and push server image
+    - name: Build and push server image
       run: |
-        docker build -t kemaladlig/k-command-tool-client:${GITHUB_SHA} -f ./client/Dockerfile ./client
+        docker build -t kemaladlig/k-command-tool-server:${GITHUB_SHA} ./server
+        docker push kemaladlig/k-command-tool-server:${GITHUB_SHA}
+
+    # 6. Build and push client image
+    - name: Build and push client image
+      run: |
+        docker build -t kemaladlig/k-command-tool-client:${GITHUB_SHA} ./client
         docker push kemaladlig/k-command-tool-client:${GITHUB_SHA}
+
+    # 7. Set up kubectl
+    - name: Set up kubectl
+      uses: google-github-actions/setup-kubectl@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        cluster_name: kubectl-command-cluster
+        location: europe-west1-b
+
+    # 8. Apply service YAMLs
+    - name: Apply service YAMLs
+      run: |
+        kubectl apply -f service/backend-service.yaml
+        kubectl apply -f service/frontend-service.yaml
+
+    # 9. Apply deployment YAMLs
+    - name: Apply deployment YAMLs
+      run: |
+        kubectl apply -f server/deployment.yaml
+        kubectl apply -f client/deployment.yaml
+
+    # 10. Apply ingress YAML (SSL setup)
+    - name: Apply Ingress YAML
+      run: |
+        kubectl apply -f ingress.yaml
+        kubectl apply -f letsencrypt-cluster-issuer.yaml
