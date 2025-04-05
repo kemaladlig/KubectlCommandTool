@@ -1,19 +1,21 @@
-FROM node:16-alpine as build
+# Stage 1: Build
+FROM node:16-alpine AS builder
+WORKDIR /app
 
-WORKDIR /usr/src/app
-
+# Optimize caching
 COPY package*.json ./
-
 RUN npm install
 
-COPY . .
+# Copy rest of the client code
+COPY public ./public
+COPY src ./src
 
+# Build the app
 RUN npm run build
 
+# Stage 2: Serve using nginx
 FROM nginx:alpine
-
-COPY --from=build /usr/src/app/build /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
 
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
