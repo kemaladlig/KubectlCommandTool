@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: kubectl-command-tool-server
-          image: kemaladlig/k-command-tool-server:${{ github.sha }}
+          image: kemaladlig/k-command-tool-server:${VERSION}
           ports:
             - containerPort: 3000
           env:
