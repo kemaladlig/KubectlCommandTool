@@ -1,33 +1,35 @@
-# 1. Aşama: Build aşaması
-FROM node:18-alpine as build
-
-# Çalışma dizinini /app olarak ayarlıyoruz
+# Stage 1: Build
+FROM node:16-alpine AS builder
 WORKDIR /app
 
-# package.json ve package-lock.json dosyalarını kopyalayın
-COPY package*.json ./
-
-# Bağımlılıkları yükleyin
+# Optimize caching
+COPY client/package*.json ./
 RUN npm install
 
-# Tüm proje dosyalarını kopyalayın
-COPY . .
-
-# Dosya yapısını kontrol etmek için ls komutları ekleyelim
+# Listele: /app dizinindeki mevcut dosyaları kontrol et
 RUN echo "Listing /app directory:" && ls -l /app
-RUN echo "Listing /app/src directory:" && ls -l /app/src
-RUN echo "Listing /app/src/components directory:" && ls -l /app/src/components
-RUN echo "Listing /app/src/assets directory:" && ls -l /app/src/assets
 
-# Build işlemini çalıştırın
+# Copy the rest of the client code
+COPY client/public ./public
+COPY client/src ./src
+COPY client/assets ./assets   # assets klasörünü doğru şekilde kopyala
+
+# Listele: /app/src ve /app/assets dizinlerini kontrol et
+RUN echo "Listing /app/src directory:" && ls -l /app/src
+RUN echo "Listing /app/assets directory:" && ls -l /app/assets
+
+# Build the app
 RUN npm run build
 
-# 2. Aşama: Nginx ile dağıtım
-FROM nginx:alpine
+# Listele: /app/build dizinini kontrol et (build işlemi sonrası)
+RUN echo "Listing /app/build directory:" && ls -l /app/build
 
-# Build edilen dosyaları Nginx'in html dizinine kopyalayın
-COPY --from=build /app/build /usr/share/nginx/html
+# Stage 2: Serve using nginx
+FROM nginx:alpine
+COPY --from=builder /app/build /usr/share/nginx/html
+
+# Optional: add custom nginx config
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
