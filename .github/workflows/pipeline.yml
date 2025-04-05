@@ -46,14 +46,14 @@ jobs:
     # 7. Apply service YAMLs
     - name: Apply service YAMLs
       run: |
-        kubectl apply -f service/backend-service.yaml
-        kubectl apply -f service/frontend-service.yaml
+        kubectl apply -f server/backend-service.yaml
+        kubectl apply -f client/frontend-service.yaml
 
     # 8. Apply deployment YAMLs
     - name: Apply deployment YAMLs
       run: |
-        kubectl apply -f server/deployment.yaml
-        kubectl apply -f client/deployment.yaml
+        kubectl apply -f server/backend-deployment.yaml
+        kubectl apply -f client/frontend-deployment.yaml
 
     # 9. Apply ingress YAML (SSL setup)
     - name: Apply Ingress YAML
