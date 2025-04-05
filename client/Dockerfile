@@ -3,16 +3,16 @@ FROM node:16-alpine AS builder
 WORKDIR /app
 
 # Optimize caching
-COPY client/package*.json ./
+COPY package*.json ./    # client/package*.json yerine sadece package*.json
 RUN npm install
 
 # Listele: /app dizinindeki mevcut dosyaları kontrol et
 RUN echo "Listing /app directory:" && ls -l /app
 
 # Copy the rest of the client code
-COPY client/public ./public
-COPY client/src ./src
-COPY client/assets ./assets   # assets klasörünü doğru şekilde kopyala
+COPY public ./public       # client/public yerine sadece public
+COPY src ./src             # client/src yerine sadece src
+COPY assets ./assets       # client/assets yerine sadece assets
 
 # Listele: /app/src ve /app/assets dizinlerini kontrol et
 RUN echo "Listing /app/src directory:" && ls -l /app/src
