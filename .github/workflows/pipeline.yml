@@ -90,9 +90,9 @@ jobs:
       # -------- Rollout Status For Deployments ---------
       - name: Wait for server deployment to finish
         run: |
-          kubectl rollout status deployment/k-command-tool-server
+          kubectl rollout status deployment/kubectl-command-tool-server
           
       - name: Wait for client deployment to finish
         run: |
-          kubectl rollout status deployment/k-command-tool-client
+          kubectl rollout status deployment/kubectl-command-tool-client
 
