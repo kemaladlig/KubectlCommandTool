@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: kubectl-command-tool-server
-          image: kemaladlig/k-command-tool-server:${{ github.sha }}
+          image: europe-west1-docker.pkg.dev/kubectl-command-tool/kubectl-artifact/k-command-tool-server:${{ github.sha }}
           ports:
             - containerPort: 3000
           env:
