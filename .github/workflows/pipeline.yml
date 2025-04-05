@@ -58,7 +58,7 @@ jobs:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
 
-      # -------- Deploy to GKE ----------
+      # -------- Deploy to GKE ---------
       - name: Deploy Client
         run: |
           kubectl apply -f ./client/frontend-deployment.yaml
