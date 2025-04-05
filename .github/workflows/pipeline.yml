@@ -9,8 +9,6 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GKE_CLUSTER: kubectl-command-cluster
   GKE_ZONE: europe-west1-b
-  GAR_ZONE: europe-west1
-  GAR_REPO: kubectl-artifact
   CLIENT_IMAGE: k-command-tool-client
   SERVER_IMAGE: k-command-tool-server
   IMAGE_TAG: ${{ github.sha }}
@@ -29,27 +27,20 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS_JSON }}
 
-      - name: Configure Docker for Artifact Registry
-        run: |
-          gcloud auth configure-docker $GAR_ZONE-docker.pkg.dev --quiet
-
-      # -------- Build & Push CLIENT ----------
-      - name: Build Client Image
-        run: |
-          docker build -t $GAR_ZONE-docker.pkg.dev/$PROJECT_ID/$GAR_REPO/$CLIENT_IMAGE:$IMAGE_TAG ./client
-
-      - name: Push Client Image
-        run: |
-          docker push $GAR_ZONE-docker.pkg.dev/$PROJECT_ID/$GAR_REPO/$CLIENT_IMAGE:$IMAGE_TAG
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
 
       # -------- Build & Push SERVER ----------
-      - name: Build Server Image
+      - name: Build and push server image
         run: |
-          docker build -t $GAR_ZONE-docker.pkg.dev/$PROJECT_ID/$GAR_REPO/$SERVER_IMAGE:$IMAGE_TAG ./server
+          docker build -t kemaladlig/k-command-tool-server:${{ github.sha }} ./server
+          docker push kemaladlig/k-command-tool-server:${{ github.sha }}
 
-      - name: Push Server Image
+      # -------- Build & Push CLIENT ----------
+      - name: Build and push client image
         run: |
-          docker push $GAR_ZONE-docker.pkg.dev/$PROJECT_ID/$GAR_REPO/$SERVER_IMAGE:$IMAGE_TAG
+          docker build -t kemaladlig/k-command-tool-client:${{ github.sha }} ./client
+          docker push kemaladlig/k-command-tool-client:${{ github.sha }}
 
       # -------- Set Kube credentials ----------
       - name: Get GKE Credentials
