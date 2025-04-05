@@ -12,7 +12,7 @@ RUN echo "Listing /app directory:" && ls -l /app
 # Copy the rest of the client code
 COPY public ./public      
 COPY src ./src             
-COPY assets ./assets      
+COPY Assets ./src/assets      
 
 
 # Build the app
