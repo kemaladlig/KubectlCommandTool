@@ -43,27 +43,19 @@ jobs:
         docker build -t kemaladlig/k-command-tool-client:${GITHUB_SHA} ./client
         docker push kemaladlig/k-command-tool-client:${GITHUB_SHA}
 
-    # 7. Set up kubectl
-    - name: Set up kubectl
-      uses: google-github-actions/setup-kubectl@v2
-      with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        cluster_name: kubectl-command-cluster
-        location: europe-west1-b
-
-    # 8. Apply service YAMLs
+    # 7. Apply service YAMLs
     - name: Apply service YAMLs
       run: |
         kubectl apply -f service/backend-service.yaml
         kubectl apply -f service/frontend-service.yaml
 
-    # 9. Apply deployment YAMLs
+    # 8. Apply deployment YAMLs
     - name: Apply deployment YAMLs
       run: |
         kubectl apply -f server/deployment.yaml
         kubectl apply -f client/deployment.yaml
 
-    # 10. Apply ingress YAML (SSL setup)
+    # 9. Apply ingress YAML (SSL setup)
     - name: Apply Ingress YAML
       run: |
         kubectl apply -f ingress.yaml
