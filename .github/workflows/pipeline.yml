@@ -41,7 +41,7 @@ jobs:
       # -------- Build & Push CLIENT ----------
       - name: Build and push client image
         run: |
-          docker build -t kemaladlig/k-command-tool-client:${GITHUB_SHA}} ./client
+          docker build -t kemaladlig/k-command-tool-client:${GITHUB_SHA} ./client
           docker push kemaladlig/k-command-tool-client:${GITHUB_SHA}
 
       # -------- Set Kube credentials ----------
