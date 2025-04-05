@@ -37,15 +37,31 @@ jobs:
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       # -------- Build & Push SERVER ----------
+      - name: Cache Docker layers for server
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/docker
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
       - name: Build and push server image
         run: |
-          docker build -t kemaladlig/k-command-tool-server:$VERSION ./server
+          docker buildx build --cache-from=type=gha --tag kemaladlig/k-command-tool-server:$VERSION ./server
           docker push kemaladlig/k-command-tool-server:$VERSION
 
       # -------- Build & Push CLIENT ----------
+      - name: Cache Docker layers for client
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/docker
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
       - name: Build and push client image
         run: |
-          docker build -t kemaladlig/k-command-tool-client:$VERSION ./client
+          docker buildx build --cache-from=type=gha --tag kemaladlig/k-command-tool-client:$VERSION ./client
           docker push kemaladlig/k-command-tool-client:$VERSION
 
       # -------- Set Kube credentials ----------
@@ -58,11 +74,8 @@ jobs:
       # -------- Deploy to GKE ---------
       - name: Deploy Client
         run: |
-          # Replace VERSION with actual version in the YAML file
           sed "s|\${VERSION}|$VERSION|g" ./client/frontend-deployment.yaml | kubectl apply -f -
 
       - name: Deploy Server
         run: |
-          # Replace VERSION with actual version in the YAML file
           sed "s|\${VERSION}|$VERSION|g" ./server/backend-deployment.yaml | kubectl apply -f -
-
